@@ -105,9 +105,33 @@ export const ButtonDark = styled.button`
     justify-content: center;
 `
 
+export const ButtonFilled = styled.button`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+    gap: 10px;
+    width: 258px;
+    height: 59px;
+    background: #FF5C00;
+    border-radius: 2px;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    color: #E9EEFF;
+    border: none;
+    outline: none;
+    margin-bottom: 34px;
+    white-space: nowrap;
+    margin-left: 100px;
+`
+
 export const SideFilter = styled.div`
     width: 493px;
-    height: 587px;
+    height: auto;
     background: #181F36;
     border: 1px solid #181F36;
     padding: 27px 0 0 0;
@@ -155,7 +179,7 @@ export const SideFilter = styled.div`
 
                 span {
                     position: relative;
-                    left: 53px;
+                    left: 0;
                 }
             }
         }
