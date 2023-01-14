@@ -1,0 +1,40 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": ["react", "react-hooks"],
+    "rules": {
+        "react/react-in-jsx-scope": "off",
+        "max-len": [1, 150, 2],
+        "one-var": 0,
+        "one-var-declaration-per-line": 0,
+        "no-unused-vars": 1,
+        "no-console": 1,
+        "no-plusplus": 0,
+        "eqeqeq": 2,
+        "no-alert": 0,
+        "no-use-before-define": ["error", { "variables": true }],
+        "no-underscore-dangle": 0,
+        "no-else-return": 1,
+        "no-empty-function": 1,
+        "block-scoped-var": 1,
+        "comma-dangle": 0,
+        "array-callback-return": 2,
+        "react/prop-types": 1,
+        "react/jsx-one-expression-per-line": [0, { "allow": "literal" }],
+        "react/wrap-multilines": 0,
+        "react/self-closing-comp": 0
+    }
+}
