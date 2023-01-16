@@ -108,18 +108,18 @@ export const ButtonDark = styled.button`
 export const ButtonFilled = styled.button`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px 50px;
     gap: 10px;
     width: 258px;
-    height: 59px;
+    height: 50px;
     background: #FF5C00;
     border-radius: 2px;
     cursor: pointer;
     font-style: normal;
     font-weight: 700;
-    font-size: 32px;
+    font-size: 24px;
     line-height: 39px;
     color: #E9EEFF;
     border: none;
@@ -127,6 +127,12 @@ export const ButtonFilled = styled.button`
     margin-bottom: 34px;
     white-space: nowrap;
     margin-left: 100px;
+`
+export const StoreContent = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
 `
 
 export const SideFilter = styled.div`
@@ -184,12 +190,166 @@ export const SideFilter = styled.div`
             }
         }
     }
+
+    .range_slider {
+        width: 100%;
+        padding: 0 2rem 0 8rem;
+        position: relative;
+        left: -2rem;
+        margin-bottom: 3rem;
+
+        .range_container {
+            width: 100%;
+            display: flex;
+            align-items: row;
+            justify-content: space-around;
+            position: relative;
+            top: 1.2rem;
+
+            .amount__card {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 0px 10px;
+                gap: 10px;
+                width: 75px;
+                height: 15px;
+                background: #8AA4FE;
+                border-radius: 5px 0px 0px 5px;
+
+                p {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 15px;
+                    color: #181F36;
+                }
+            }
+            .amount__card__2 {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 0px 10px;
+                gap: 10px;
+                width: 75px;
+                height: 15px;
+                background: #8AA4FE;
+                border-radius: 0px 5px 5px 0px;
+
+                p {
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 15px;
+                    color: #181F36;
+                }
+            }
+
+            .amount__line {
+                width: 14px;
+                height: 0px;
+                border: 1px solid #FFFFFF;
+                position: relative;
+                top: 5px;
+            }
+        }
+    }
 `
 
 export const PhoneWrap = styled.div`
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     padding: 0 12px;
     min-height: 587px;
     background: linear-gradient(0deg, #F1F6FD 1.63%, #F1F6FD 20.5%, #F1F6FD 58.57%, #FFFFFF 100%);
+`
+
+export const PhoneCard = styled.div`
+    width: 25%;
+    height: 253px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 9px;
+    background: #FFFFFF;
+    border-radius: 10px;
+
+    .image__container {
+        width: 100%;
+        height: 123px;
+        background: #181F36;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    .gadget__info {
+        width: 100%;
+        padding: 9px 7px;
+
+        .gadget {
+            padding: 0px;
+            width: 100%;
+            height: 121px;
+
+            .gadget__name {
+                font-family: 'Poppins', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 15px;
+                line-height: 22px;
+                color: #2F2C4A;
+                text-align: left;
+            }
+
+            .gadget__price {
+                font-family: 'Poppins', sans-serif;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 30px;
+                color: #3C3C3C;
+                margin-bottom: 0.2rem;
+            }
+
+            .gadget__units {
+                font-family: 'Poppins', sans-serif;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 18px;
+                color: #3C3C3C;
+            }
+
+            .gadget__cta {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-top: 10px;
+            }
+        }
+    }
+`
+
+export const ButtonCTA = styled.button`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 80px;
+    gap: 10px;
+    width: 122px;
+    height: 25px;
+    background: #181F36;
+    border-radius: 2px;
+    cursor: pointer;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #A6A6A6;
 `
