@@ -175,27 +175,27 @@ const Home = () => {
                                 <span>All</span>
                                 <HiOutlineCheckCircle style={{ display: storage === 'all' ? 'block' : 'none'}}/> 
                         </li>
-                        <li onClick={()=>{setStorage('32GB'); fetchGadgets('buy', page, 12, ` ,${search}, ${storage}`)}} 
+                        <li onClick={()=>{setStorage('32GB'); fetchGadgets('buy', page, 12, ` ,${search}, 32GB`)}} 
                             style={{ backgroundColor: storage === '32GB' ? '#25315B' : 'inherit'}}>
                                 <span>32GB</span>
                                 <HiOutlineCheckCircle style={{ display: storage === '32GB' ? 'block' : 'none'}}/> 
                         </li>
-                        <li onClick={()=>{setStorage('64GB'); fetchGadgets('buy', page, 12, ` ,${search}, ${storage}`)}} 
+                        <li onClick={()=>{setStorage('64GB'); fetchGadgets('buy', page, 12, ` ,${search}, 64GB`)}} 
                             style={{ backgroundColor: storage === '64GB' ? '#25315B' : 'inherit'}}>
                                 <span>64GB</span>
                                 <HiOutlineCheckCircle style={{ display: storage === '64GB' ? 'block' : 'none'}}/> 
                         </li>
-                        <li onClick={()=>{setStorage('128GB'); fetchGadgets('buy', page, 12, ` ,${search}, ${storage}`)}} 
+                        <li onClick={()=>{setStorage('128GB'); fetchGadgets('buy', page, 12, ` ,${search}, 128GB`)}} 
                             style={{ backgroundColor: storage === '128GB' ? '#25315B' : 'inherit'}}>
                                 <span>128GB</span>
                                 <HiOutlineCheckCircle style={{ display: active === '128GB' ? 'block' : 'none'}}/> 
                         </li>
-                        <li onClick={()=>{setStorage('256GB'); fetchGadgets('buy', page, 12, ` ,${search}, ${storage}`)}} 
+                        <li onClick={()=>{setStorage('256GB'); fetchGadgets('buy', page, 12, ` ,${search}, 256GB`)}} 
                             style={{ backgroundColor: storage === '256GB' ? '#25315B' : 'inherit'}}>
                                 <span>256GB</span>
                                 <HiOutlineCheckCircle style={{ display: storage === '256GB' ? 'block' : 'none'}}/> 
                         </li>
-                        <li onClick={()=>{setStorage('512GB'); fetchGadgets('buy', page, 12, ` ,${search}, ${storage}`)}} 
+                        <li onClick={()=>{setStorage('512GB'); fetchGadgets('buy', page, 12, ` ,${search}, 512GB`)}} 
                             style={{ backgroundColor: storage === '512GB' ? '#25315B' : 'inherit'}}>
                                 <span>512GB</span>
                                 <HiOutlineCheckCircle style={{ display: storage === '512GB' ? 'block' : 'none'}}/> 
