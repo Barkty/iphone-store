@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalContainer = styled.div`
-    display: ${(props) => (props.display ? 'block' : 'none')};
+    display: ${(props) => (props.display === 'true' ? 'block' : 'none')};
     width: 100%;
     height: 100vh;
     position: fixed;
