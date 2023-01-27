@@ -1,13 +1,13 @@
 import Navbar from 'components/navbar/Navbar'
 import React, { useEffect, useState } from 'react'
 import { ButtonCTA, ButtonDark, ButtonFilled, ButtonMobile, Container, ErrorMessage, Hero, 
-    InputContainer, PhoneCard, PhoneWrap, SideFilter, StoreContent } from './styles'
+    InputContainer, PhoneCard, PhoneWrap, SideFilter, StoreContent, StyledThumb, StyledTrack } from './styles'
 import hero from 'assets/hero_image.svg'
 import { motion } from 'framer-motion'
 import { HiOutlineCheckCircle } from 'react-icons/hi'
 import { FaPlusCircle } from 'react-icons/fa'
 import Modal from 'components/modal/Modal'
-import Slider from 'rc-slider';
+import styled from 'styled-components';
 import 'rc-slider/assets/index.css';
 import { getGadgets } from 'services/phones.service'
 import { useDispatch, useSelector } from 'react-redux'
@@ -34,11 +34,27 @@ import iphoneXR from 'assets/iphone_xr.png'
 import iphoneXS from 'assets/iphone_xs.png'
 import iphoneXSMax from 'assets/iphone_xs_max.png'
 import { BsFillFilterCircleFill } from 'react-icons/bs'
+import ReactSlider from 'react-slider'
+
+
+const StyledSlider = styled(ReactSlider)`
+    width: 100%;
+    height: 5px;
+
+    .track {
+        left: 0 !important;
+    }
+`;
 
 const Home = () => {
-    const [active, setActive] = useState('all')
-    const [storage, setStorage] = useState('all')
+    const [active, setActive] = useState('All')
+    const [storage, setStorage] = useState('All')
     const [data, setData] = useState([])
+    const [price, setPrice] = useState([])
+    const [value, setValue] = useState({
+        min: 0,
+        max: 0
+    })
     const [page, setPage] = useState(1)
     const [openModal, setOpenModal] = useState(false)
     const [search, setSearch] =useState('')
@@ -81,6 +97,96 @@ const Home = () => {
         fetchGadgets('', page, 12, search)
     }, [page, search])
 
+    useEffect(() => {
+        let nums = []
+        data?.docs?.map(obj => (
+            nums.push(Number(obj?.price))
+        ))
+        setPrice(nums)
+    }, [data?.docs])
+
+    useEffect(() => {
+        let min = Math.min(...price)
+        let max = Math.max(...price)
+        setValue({
+            ...value,
+            max: max,
+            min: min
+        })
+    }, [price])
+
+    const handleValueChange = (values, index) => {
+        if(index === 0) {
+            setValue({
+                ...value,
+                min: values[0],
+            })
+        }
+        setValue({
+            ...value,
+            max: values[1],
+        })
+    }
+
+    const state = {
+        storageObj: [
+            {
+                id: 1,
+                name: 'All'
+            },
+            {
+                id: 2,
+                name: '32GB'
+            },
+            {
+                id: 3,
+                name: '64GB'
+            },
+            {
+                id: 4,
+                name: '128GB'
+            },
+            {
+                id: 5,
+                name: '256GB'
+            },
+            {
+                id: 6,
+                name: '512GB'
+            },
+        ],
+        category: [
+            {
+                id: 1,
+                name: 'All'
+            },
+            {
+                id: 2,
+                name: 'Sell'
+            },
+            {
+                id: 3,
+                name: 'Samsung'
+            },
+            {
+                id: 4,
+                name: 'iPad'
+            },
+            {
+                id: 5,
+                name: 'MacBook'
+            },
+            {
+                id: 6,
+                name: 'Airpods'
+            },
+        ]
+    }
+
+    const Thumb = (props, state) => <StyledThumb {...props}>{state.valueNow}</StyledThumb>;
+
+    const Track = (props, state) => <StyledTrack {...props} index={state.index} />;
+    
     let num = 0
 
   return (
@@ -118,88 +224,41 @@ const Home = () => {
                 <h2 className='category'>Category</h2>
                 <div className='category__list__container'>
                     <ul className='category__list'>
-                        <li onClick={()=>{setActive('all'); fetchGadgets('buy', page, 12, search)}} 
-                            style={{ backgroundColor: active === 'all' ? '#25315B' : 'inherit'}}>
-                                <span>All</span>
-                                <HiOutlineCheckCircle style={{ display: active === 'all' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>{setActive('iPhone'); fetchGadgets('sell', page, 12, search)}} 
-                            style={{ backgroundColor: active === 'iPhone' ? '#25315B' : 'inherit'}}>
-                                <span>Sell</span>
-                                <HiOutlineCheckCircle style={{ display: active === 'iPhone' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>setActive('samsung')} 
-                            style={{ backgroundColor: active === 'samsung' ? '#25315B' : 'inherit'}}>
-                                <span>Samsung</span>
-                                <HiOutlineCheckCircle style={{ display: active === 'samsung' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>setActive('iPad')} 
-                            style={{ backgroundColor: active === 'iPad' ? '#25315B' : 'inherit'}}>
-                                <span>iPad</span>
-                                <HiOutlineCheckCircle style={{ display: active === 'iPad' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>setActive('Macbook')} 
-                            style={{ backgroundColor: active === 'Macbook' ? '#25315B' : 'inherit'}}>
-                                <span>MacBook</span>
-                                <HiOutlineCheckCircle style={{ display: active === 'Macbook' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>setActive('Airpods')} 
-                            style={{ backgroundColor: active === 'Airpods' ? '#25315B' : 'inherit'}}>
-                                <span>Airpods</span>
-                                <HiOutlineCheckCircle style={{ display: active === 'Airpods' ? 'block' : 'none'}}/> 
-                        </li>
+                        {state.category.map(cat => (
+                            <li key={cat.id} onClick={()=>{setActive(cat.name); fetchGadgets(cat.name === 'All' ? 'buy' : 'sell', page, 12, search)}} 
+                                style={{ backgroundColor: active === cat.name ? '#25315B' : 'inherit'}}>
+                                    <span>{cat.name}</span>
+                                    <HiOutlineCheckCircle style={{ display: active === cat.name ? 'block' : 'none'}}/> 
+                            </li>
+                        ))}
                     </ul>
                 </div>
                 <h2 className='category'>Price Filter</h2>
                 <div className='range_slider'>
-                    <Slider min={0} max={200} 
-                        railStyle={{ backgroundColor: '#8AA4FE'}} 
-                        trackStyle={[{ backgroundColor: '#44589C' }]} 
-                        handleStyle={[{ backgroundColor: '#44589C' }]}
-                        count={3}/>
-                        <div className='range_container'>
-                            <div className='amount__card'>
-                                <p>$300</p>
-                            </div>
-                            <div className='amount__line'></div>
-                            <div className='amount__card__2'>
-                                <p>$600</p>
-                            </div>
+                    <StyledSlider defaultValue={[value.min, value.max]} 
+                    renderTrack={Track} renderThumb={Thumb} 
+                    onChange={handleValueChange}/>;
+                    <div className='range_container'>
+                        <div className='amount__card'>
+                            <p>${value.min}</p>
                         </div>
+                        <div className='amount__line'></div>
+                        <div className='amount__card__2'>
+                            <p>${value.max}</p>
+                        </div>
+                    </div>
                 </div>
                 <h2 className='category'>Storage</h2>
                 <div className='category__list__container'>
                     <ul className='category__list'>
-                        <li onClick={()=>{setStorage('all'); fetchGadgets('buy', page, 12, ` ,${search}, `)}} 
-                            style={{ backgroundColor: storage === 'all' ? '#25315B' : 'inherit'}}>
-                                <span>All</span>
-                                <HiOutlineCheckCircle style={{ display: storage === 'all' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>{setStorage('32GB'); fetchGadgets('buy', page, 12, ` ,${search}, 32GB`)}} 
-                            style={{ backgroundColor: storage === '32GB' ? '#25315B' : 'inherit'}}>
-                                <span>32GB</span>
-                                <HiOutlineCheckCircle style={{ display: storage === '32GB' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>{setStorage('64GB'); fetchGadgets('buy', page, 12, ` ,${search}, 64GB`)}} 
-                            style={{ backgroundColor: storage === '64GB' ? '#25315B' : 'inherit'}}>
-                                <span>64GB</span>
-                                <HiOutlineCheckCircle style={{ display: storage === '64GB' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>{setStorage('128GB'); fetchGadgets('buy', page, 12, ` ,${search}, 128GB`)}} 
-                            style={{ backgroundColor: storage === '128GB' ? '#25315B' : 'inherit'}}>
-                                <span>128GB</span>
-                                <HiOutlineCheckCircle style={{ display: active === '128GB' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>{setStorage('256GB'); fetchGadgets('buy', page, 12, ` ,${search}, 256GB`)}} 
-                            style={{ backgroundColor: storage === '256GB' ? '#25315B' : 'inherit'}}>
-                                <span>256GB</span>
-                                <HiOutlineCheckCircle style={{ display: storage === '256GB' ? 'block' : 'none'}}/> 
-                        </li>
-                        <li onClick={()=>{setStorage('512GB'); fetchGadgets('buy', page, 12, ` ,${search}, 512GB`)}} 
-                            style={{ backgroundColor: storage === '512GB' ? '#25315B' : 'inherit'}}>
-                                <span>512GB</span>
-                                <HiOutlineCheckCircle style={{ display: storage === '512GB' ? 'block' : 'none'}}/> 
-                        </li>
+                        {state.storageObj.map(store => (
+                            <li key={store.id} onClick={()=>{setStorage(store.name);
+                                 fetchGadgets('sell', page, 12, ` ,${search}, ${store.name === 'All' ? '' : store.name}`)}} 
+                                style={{ backgroundColor: storage === store.name ? '#25315B' : 'inherit'}}>
+                                    <span>{store.name}</span>
+                                    <HiOutlineCheckCircle style={{ display: storage === store.name ? 'block' : 'none'}}/> 
+                            </li>
+                        ))}
                     </ul>
                 </div>
 

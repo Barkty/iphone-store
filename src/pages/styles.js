@@ -514,3 +514,22 @@ export const ErrorMessage = styled.span`
     letter-spacing: 2px;
 
 `
+export const StyledThumb = styled.div`
+    height: 20px;
+    line-height: 25px;
+    width: 20px;
+    text-align: center;
+    background-color: #44589C;
+    border-color: #fff;
+    color: #fff;
+    border-radius: 50%;
+    cursor: grab;
+    margin-top: -5px;
+`;
+
+export const StyledTrack = styled.div`
+    top: 0;
+    bottom: 0;
+    background: ${props => (props.index === 2 ? '#8AA4FE' : props.index === 1 ? '#44589C' : '#8AA4FE')};
+    border-radius: 999px;
+`;
